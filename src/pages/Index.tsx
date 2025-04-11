@@ -4,58 +4,15 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Compass, Sparkles } from "lucide-react";
+import { MangaSlider } from "@/components/manga/MangaSlider";
 
 const Index = () => {
   return (
     <MainLayout>
       <section className="mb-10">
-        <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10 mb-10">
-          <div className="md:flex-1 space-y-4">
-            <h1 className="text-4xl font-bold">MangaVerse</h1>
-            <p className="text-lg text-muted-foreground">
-              Your ultimate destination for manga reading. Explore thousands of titles from 
-              various genres and enjoy a seamless reading experience.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <Button className="gap-2">
-                <BookOpen className="h-4 w-4" />
-                Start Reading
-              </Button>
-              <Button variant="outline" className="gap-2">
-                <Compass className="h-4 w-4" />
-                Browse Catalog
-              </Button>
-            </div>
-          </div>
-          <div className="md:flex-1 relative h-60 md:h-80">
-            <div className="absolute top-0 left-[10%] w-[80%] h-full bg-gradient-to-r from-manga-primary/20 to-manga-secondary/20 blur-3xl -z-10 rounded-full"></div>
-            <div className="relative h-full flex items-center justify-center">
-              <div className="bg-manga-darker p-2 rounded-lg shadow-xl transform rotate-3 z-10">
-                <img 
-                  src={popularManga[0].coverImage} 
-                  alt="Featured Manga" 
-                  className="h-56 md:h-72 w-auto rounded"
-                />
-              </div>
-              <div className="bg-manga-darker p-2 rounded-lg shadow-xl transform -rotate-3 absolute -left-6 top-6 z-0">
-                <img 
-                  src={popularManga[1].coverImage} 
-                  alt="Featured Manga" 
-                  className="h-52 md:h-64 w-auto rounded opacity-90"
-                />
-              </div>
-              <div className="bg-manga-darker p-2 rounded-lg shadow-xl transform rotate-6 absolute -right-4 top-4 z-0">
-                <img 
-                  src={popularManga[2].coverImage} 
-                  alt="Featured Manga" 
-                  className="h-48 md:h-60 w-auto rounded opacity-80"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <MangaSlider />
         
-        <div className="flex items-center gap-2 mb-6">
+        <div className="flex items-center gap-2 mb-6 mt-10">
           <Sparkles className="h-5 w-5 text-primary" />
           <h2 className="text-xl font-semibold">Trending Now</h2>
         </div>
