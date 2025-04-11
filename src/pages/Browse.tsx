@@ -6,7 +6,7 @@ import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockDa
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Filter, SortDesc, Grid2X2, List } from "lucide-react";
+import { Filter, SortDesc, Grid2X2, List, Star } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
 // Combine all manga data

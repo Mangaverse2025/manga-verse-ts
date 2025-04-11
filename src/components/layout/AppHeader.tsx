@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { BookOpen, Compass, Heart, Search, User, Bell, Menu } from "lucide-react";
 import {
@@ -80,11 +79,9 @@ export function AppHeader() {
           <NavigationMenuList>
             {navigationItems.slice(0, 3).map((item) => (
               <NavigationMenuItem key={item.title}>
-                <Link to={item.path}>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <span>{item.title}</span>
-                  </NavigationMenuLink>
-                </Link>
+                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                  <Link to={item.path}>{item.title}</Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
             <NavigationMenuItem>
