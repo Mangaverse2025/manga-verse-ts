@@ -1,109 +1,19 @@
 
-import { Link } from "react-router-dom";
-import { BookOpen, Compass, Heart, Search, User, Bell, Menu, BookMarked, Users, Group, Megaphone, LogOut } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ProfilePanel } from "../profile/ProfilePanel";
-
-const navigationItems = [
-  {
-    title: "Home",
-    icon: BookOpen,
-    path: "/",
-  },
-  {
-    title: "Browse",
-    icon: Compass,
-    path: "/browse",
-  },
-  {
-    title: "Search",
-    icon: Search,
-    path: "/search",
-  },
-  {
-    title: "Library",
-    icon: BookOpen,
-    path: "/library",
-  },
-  {
-    title: "Favorites",
-    icon: Heart,
-    path: "/favorites",
-  },
-];
-
-const genreItems = [
-  "Action",
-  "Adventure",
-  "Comedy",
-  "Drama",
-  "Fantasy",
-  "Horror",
-  "Mystery",
-  "Romance",
-  "Sci-Fi",
-  "Slice of Life",
-];
+import { Search } from "lucide-react";
+import { AppLogo } from "./header/AppLogo";
+import { NavigationLinks } from "./header/NavigationLinks";
+import { UserActions } from "./header/UserActions";
+import { MobileMenu } from "./header/MobileMenu";
 
 export function AppHeader() {
   return (
     <header className="border-b border-border sticky top-0 z-10 bg-background/80 backdrop-blur-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center gap-2">
-          <Link to="/" className="flex items-center gap-2">
-            <BookOpen className="h-6 w-6 text-primary" />
-            <span className="font-bold text-xl">MangaVerse</span>
-          </Link>
-        </div>
+        <AppLogo />
 
         {/* Desktop Navigation */}
-        <NavigationMenu className="hidden md:flex">
-          <NavigationMenuList>
-            {navigationItems.slice(0, 3).map((item) => (
-              <NavigationMenuItem key={item.title}>
-                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                  <Link to={item.path}>{item.title}</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Genres</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div className="grid grid-cols-2 gap-3 p-4 w-[400px]">
-                  {genreItems.map((genre) => (
-                    <Link 
-                      key={genre} 
-                      to={`/genres/${genre.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="text-sm font-medium leading-none">{genre}</div>
-                    </Link>
-                  ))}
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        <NavigationLinks />
 
         {/* Search and User Actions */}
         <div className="flex items-center gap-3">
@@ -117,75 +27,10 @@ export function AppHeader() {
           </div>
 
           {/* User Actions */}
-          <Button variant="ghost" size="icon">
-            <Bell className="h-5 w-5" />
-          </Button>
-          
-          {/* Profile Dropdown - Updated */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <ProfilePanel />
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <UserActions />
 
           {/* Mobile Menu Trigger */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <div className="flex flex-col gap-4 mt-6">
-                <Link to="/" className="flex items-center gap-2 mb-6">
-                  <BookOpen className="h-6 w-6 text-primary" />
-                  <span className="font-bold text-xl">MangaVerse</span>
-                </Link>
-                
-                <div className="relative mb-4">
-                  <input 
-                    type="search" 
-                    placeholder="Search manga..." 
-                    className="pl-10 pr-4 py-2 text-sm rounded-md w-full border border-input bg-background"
-                  />
-                  <Search className="h-4 w-4 text-muted-foreground absolute left-3 top-3" />
-                </div>
-                
-                <nav className="flex flex-col gap-2">
-                  {navigationItems.map((item) => (
-                    <Link
-                      key={item.title}
-                      to={item.path}
-                      className="flex items-center gap-3 p-2 rounded-md hover:bg-accent"
-                    >
-                      <item.icon className="h-5 w-5" />
-                      <span>{item.title}</span>
-                    </Link>
-                  ))}
-                </nav>
-                
-                <div className="mt-4">
-                  <h3 className="font-medium mb-2">Popular Genres</h3>
-                  <div className="grid grid-cols-2 gap-2">
-                    {genreItems.slice(0, 6).map((genre) => (
-                      <Link
-                        key={genre}
-                        to={`/genres/${genre.toLowerCase().replace(/\s+/g, '-')}`}
-                        className="text-sm p-2 hover:text-primary"
-                      >
-                        {genre}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <MobileMenu />
         </div>
       </div>
     </header>
