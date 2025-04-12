@@ -1,14 +1,46 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Filter } from "lucide-react";
 
 interface SearchFiltersProps {
   sort: string;
   setSort: (sort: string) => void;
+  selectedGenres: string[];
+  setSelectedGenres: (genres: string[]) => void;
+  statusFilters: string[];
+  setStatusFilters: (status: string[]) => void;
 }
 
-export function SearchFilters({ sort, setSort }: SearchFiltersProps) {
+export function SearchFilters({ 
+  sort, 
+  setSort, 
+  selectedGenres, 
+  setSelectedGenres, 
+  statusFilters, 
+  setStatusFilters 
+}: SearchFiltersProps) {
+  const genres = ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Slice of Life", "Sports", "Supernatural", "Thriller"];
+  const statuses = ["Ongoing", "Completed", "Hiatus"];
+
+  const handleGenreChange = (genre: string, checked: boolean) => {
+    if (checked) {
+      setSelectedGenres([...selectedGenres, genre]);
+    } else {
+      setSelectedGenres(selectedGenres.filter(g => g !== genre));
+    }
+  };
+
+  const handleStatusChange = (status: string, checked: boolean) => {
+    if (checked) {
+      setStatusFilters([...statusFilters, status]);
+    } else {
+      setStatusFilters(statusFilters.filter(s => s !== status));
+    }
+  };
+
   return (
     <div className="w-full md:w-64 shrink-0">
       <div className="sticky top-20 border border-border rounded-lg p-4 bg-card/50">
@@ -39,18 +71,21 @@ export function SearchFilters({ sort, setSort }: SearchFiltersProps) {
           <div>
             <label className="text-sm font-medium mb-1.5 block">Status</label>
             <div className="space-y-2">
-              <label className="flex items-center space-x-2 text-sm">
-                <input type="checkbox" className="rounded border-input" />
-                <span>Ongoing</span>
-              </label>
-              <label className="flex items-center space-x-2 text-sm">
-                <input type="checkbox" className="rounded border-input" />
-                <span>Completed</span>
-              </label>
-              <label className="flex items-center space-x-2 text-sm">
-                <input type="checkbox" className="rounded border-input" />
-                <span>Hiatus</span>
-              </label>
+              {statuses.map((status) => (
+                <div key={status} className="flex items-center space-x-2">
+                  <Checkbox 
+                    id={`status-${status}`} 
+                    checked={statusFilters.includes(status)}
+                    onCheckedChange={(checked) => handleStatusChange(status, checked === true)}
+                  />
+                  <label 
+                    htmlFor={`status-${status}`}
+                    className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {status}
+                  </label>
+                </div>
+              ))}
             </div>
           </div>
           
@@ -58,17 +93,34 @@ export function SearchFilters({ sort, setSort }: SearchFiltersProps) {
           
           <div>
             <label className="text-sm font-medium mb-1.5 block">Genres</label>
-            <div className="space-y-2 max-h-48 overflow-y-auto">
-              {["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Horror", "Mystery", "Romance", "Sci-Fi", "Slice of Life", "Sports", "Supernatural", "Thriller"].map((genre) => (
-                <label key={genre} className="flex items-center space-x-2 text-sm">
-                  <input type="checkbox" className="rounded border-input" />
-                  <span>{genre}</span>
-                </label>
+            <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+              {genres.map((genre) => (
+                <div key={genre} className="flex items-center space-x-2">
+                  <Checkbox 
+                    id={`genre-${genre}`} 
+                    checked={selectedGenres.includes(genre)}
+                    onCheckedChange={(checked) => handleGenreChange(genre, checked === true)}
+                  />
+                  <label 
+                    htmlFor={`genre-${genre}`}
+                    className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {genre}
+                  </label>
+                </div>
               ))}
             </div>
           </div>
           
-          <Button className="w-full">Apply Filters</Button>
+          <Button 
+            className="w-full"
+            onClick={() => {
+              setSelectedGenres([]);
+              setStatusFilters([]);
+            }}
+          >
+            Reset Filters
+          </Button>
         </div>
       </div>
     </div>

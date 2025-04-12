@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
@@ -25,14 +25,29 @@ const Search = () => {
   const [sort, setSort] = useState<string>(initialSort);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [showFilters, setShowFilters] = useState<boolean>(false);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [statusFilters, setStatusFilters] = useState<string[]>([]);
   
-  // Filter manga based on search
-  const filteredManga = allManga.filter(manga => 
-    manga.title.toLowerCase().includes(query.toLowerCase()) ||
-    manga.author.toLowerCase().includes(query.toLowerCase()) ||
-    manga.genres.some(genre => genre.toLowerCase().includes(query.toLowerCase())) ||
-    manga.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()))
-  );
+  // Filter manga based on search, genres, and status
+  const filteredManga = allManga.filter(manga => {
+    // Search filter
+    const matchesSearch = 
+      !query || 
+      manga.title.toLowerCase().includes(query.toLowerCase()) ||
+      manga.author.toLowerCase().includes(query.toLowerCase()) ||
+      manga.genres.some(genre => genre.toLowerCase().includes(query.toLowerCase())) ||
+      manga.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase()));
+    
+    // Genre filter
+    const matchesGenre = selectedGenres.length === 0 || 
+      selectedGenres.some(genre => manga.genres.includes(genre));
+    
+    // Status filter
+    const matchesStatus = statusFilters.length === 0 || 
+      statusFilters.includes(manga.status);
+    
+    return matchesSearch && matchesGenre && matchesStatus;
+  });
   
   // Sort manga based on selected option
   const sortedManga = [...filteredManga].sort((a, b) => {
@@ -54,6 +69,24 @@ const Search = () => {
     }
   });
   
+  // Update URL query params when filters change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    params.set("sort", sort);
+    
+    if (selectedGenres.length > 0) {
+      params.set("genres", selectedGenres.join(","));
+    }
+    
+    if (statusFilters.length > 0) {
+      params.set("status", statusFilters.join(","));
+    }
+    
+    const newUrl = `${location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl);
+  }, [query, sort, selectedGenres, statusFilters, location.pathname]);
+  
   return (
     <MainLayout>
       <div className="mb-6">
@@ -65,7 +98,16 @@ const Search = () => {
       
       <div className="flex flex-col md:flex-row gap-6">
         {/* Filters sidebar */}
-        {showFilters && <SearchFilters sort={sort} setSort={setSort} />}
+        {showFilters && 
+          <SearchFilters 
+            sort={sort} 
+            setSort={setSort}
+            selectedGenres={selectedGenres}
+            setSelectedGenres={setSelectedGenres}
+            statusFilters={statusFilters}
+            setStatusFilters={setStatusFilters}
+          />
+        }
         
         <div className="flex-1">
           {/* Search bar */}
