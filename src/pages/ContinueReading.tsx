@@ -1,11 +1,12 @@
 
 import { MainLayout } from "@/components/layout/MainLayout";
 import { MangaCard } from "@/components/manga/MangaCard";
-import { mockMangaList } from "@/data/mockData";
+import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 
 export default function ContinueReading() {
-  // Use a filtered subset of manga for the demo
-  const continueReadingManga = mockMangaList.slice(0, 6).map(manga => ({
+  // Combine all available manga lists and take a subset for continue reading
+  const allManga = [...popularManga, ...recentlyUpdatedManga, ...trendingManga];
+  const continueReadingManga = allManga.slice(0, 6).map(manga => ({
     ...manga,
     lastReadChapter: `Chapter ${Math.floor(Math.random() * 20) + 1}`
   }));
@@ -29,7 +30,7 @@ export default function ContinueReading() {
                   title={manga.title}
                   coverImage={manga.coverImage}
                   author={manga.author}
-                  status={manga.status as "Ongoing" | "Completed" | "Hiatus" | undefined}
+                  status={manga.status}
                 />
                 <p className="text-sm text-muted-foreground">Last read: {manga.lastReadChapter}</p>
               </div>

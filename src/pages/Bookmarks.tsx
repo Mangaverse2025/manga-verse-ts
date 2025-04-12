@@ -3,22 +3,25 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { MangaCard } from "@/components/manga/MangaCard";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { mockMangaList } from "@/data/mockData";
+import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 
 type BookmarkCategory = 'all' | 'reading' | 'completed' | 'plan-to-read' | 'on-hold' | 're-reading' | 'dropped';
 
 export default function Bookmarks() {
   const [activeCategory, setActiveCategory] = useState<BookmarkCategory>('all');
   
+  // Combine all available manga lists
+  const allManga = [...popularManga, ...recentlyUpdatedManga, ...trendingManga];
+  
   // Simulate categorized manga for the demo
   const categories = {
-    'all': mockMangaList.slice(0, 12),
-    'reading': mockMangaList.slice(0, 5),
-    'completed': mockMangaList.slice(5, 8),
-    'plan-to-read': mockMangaList.slice(8, 11),
-    'on-hold': mockMangaList.slice(11, 13),
-    're-reading': mockMangaList.slice(13, 15),
-    'dropped': mockMangaList.slice(15, 16),
+    'all': allManga.slice(0, 12),
+    'reading': allManga.slice(0, 5),
+    'completed': allManga.slice(5, 8),
+    'plan-to-read': allManga.slice(8, 11),
+    'on-hold': allManga.slice(11, 13),
+    're-reading': allManga.slice(13, 15),
+    'dropped': allManga.slice(15, 16),
   };
 
   return (
@@ -84,7 +87,7 @@ export default function Bookmarks() {
                 title={manga.title}
                 coverImage={manga.coverImage}
                 author={manga.author}
-                status={manga.status as "Ongoing" | "Completed" | "Hiatus" | undefined}
+                status={manga.status}
               />
             ))}
           </div>

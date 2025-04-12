@@ -1,11 +1,12 @@
 
 import { MainLayout } from "@/components/layout/MainLayout";
 import { MangaCard } from "@/components/manga/MangaCard";
-import { mockMangaList } from "@/data/mockData";
+import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 
 export default function Follows() {
-  // Use a subset of manga for the demo
-  const followedManga = mockMangaList.slice(0, 8).map(manga => ({
+  // Combine all available manga lists and take a subset for follows
+  const allManga = [...popularManga, ...recentlyUpdatedManga, ...trendingManga];
+  const followedManga = allManga.slice(0, 8).map(manga => ({
     ...manga,
     latestChapter: `Chapter ${Math.floor(Math.random() * 100) + 1}`
   }));
@@ -29,7 +30,7 @@ export default function Follows() {
                   title={manga.title}
                   coverImage={manga.coverImage}
                   author={manga.author}
-                  status={manga.status as "Ongoing" | "Completed" | "Hiatus" | undefined}
+                  status={manga.status}
                 />
                 <p className="text-sm text-muted-foreground">Latest: {manga.latestChapter}</p>
               </div>
