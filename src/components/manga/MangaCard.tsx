@@ -3,6 +3,13 @@ import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger 
+} from "@/components/ui/tooltip";
 
 export interface MangaCardProps {
   id: string;
@@ -14,6 +21,13 @@ export interface MangaCardProps {
 }
 
 export function MangaCard({ id, title, coverImage, author, status, className }: MangaCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent navigation when clicking the heart
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <div className={cn("group relative rounded-lg overflow-hidden flex flex-col bg-card", className)}>
       <div className="relative aspect-[2/3] overflow-hidden">
@@ -24,13 +38,26 @@ export function MangaCard({ id, title, coverImage, author, status, className }: 
             className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
           />
         </Link>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="absolute top-2 right-2 h-8 w-8 rounded-full bg-black/40 hover:bg-black/60"
-        >
-          <Heart className="h-4 w-4" />
-        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className={cn(
+                  "absolute top-2 right-2 h-8 w-8 rounded-full bg-black/40 hover:bg-black/60",
+                  isFavorite && "text-red-500"
+                )}
+                onClick={toggleFavorite}
+              >
+                <Heart className={cn("h-4 w-4", isFavorite && "fill-current")} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              {isFavorite ? "Remove from favorites" : "Add to favorites"}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         {status && (
           <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-xs px-2 py-1 text-center">
             {status}

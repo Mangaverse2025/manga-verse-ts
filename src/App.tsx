@@ -9,6 +9,12 @@ import Search from "./pages/Search";
 import MangaDetails from "./pages/MangaDetails";
 import ChapterReader from "./pages/ChapterReader";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+import ContinueReading from "./pages/ContinueReading";
+import Bookmarks from "./pages/Bookmarks";
+import Follows from "./pages/Follows";
+import MyGroups from "./pages/MyGroups";
+import Announcements from "./pages/Announcements";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +30,12 @@ const App = () => (
           <Route path="/search" element={<Search />} />
           <Route path="/manga/:id" element={<MangaDetails />} />
           <Route path="/manga/:mangaId/chapter/:chapterId" element={<ChapterReader />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/continue-reading" element={<ContinueReading />} />
+          <Route path="/bookmarks" element={<Bookmarks />} />
+          <Route path="/follows" element={<Follows />} />
+          <Route path="/my-groups" element={<MyGroups />} />
+          <Route path="/announcements" element={<Announcements />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

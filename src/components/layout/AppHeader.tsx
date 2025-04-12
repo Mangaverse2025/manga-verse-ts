@@ -1,5 +1,6 @@
+
 import { Link } from "react-router-dom";
-import { BookOpen, Compass, Heart, Search, User, Bell, Menu } from "lucide-react";
+import { BookOpen, Compass, Heart, Search, User, Bell, Menu, BookMarked, Users, Group, Megaphone, LogOut } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ProfilePanel } from "../profile/ProfilePanel";
 
 const navigationItems = [
   {
@@ -118,29 +120,16 @@ export function AppHeader() {
           <Button variant="ghost" size="icon">
             <Bell className="h-5 w-5" />
           </Button>
+          
+          {/* Profile Dropdown - Updated */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Link to="/library" className="flex items-center w-full">
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  <span>Library</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link to="/favorites" className="flex items-center w-full">
-                  <Heart className="mr-2 h-4 w-4" />
-                  <span>Favorites</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Log out</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="w-56">
+              <ProfilePanel />
             </DropdownMenuContent>
           </DropdownMenu>
 
