@@ -24,6 +24,14 @@ interface SearchResultsProps {
   view: "grid" | "list";
 }
 
+// Helper function to safely cast status string to the expected type
+const getValidStatus = (status: string): "Ongoing" | "Completed" | "Hiatus" | undefined => {
+  if (status === "Ongoing" || status === "Completed" || status === "Hiatus") {
+    return status;
+  }
+  return undefined;
+};
+
 export function SearchResults({ query, sortedManga, view }: SearchResultsProps) {
   return (
     <>
@@ -37,7 +45,14 @@ export function SearchResults({ query, sortedManga, view }: SearchResultsProps) 
         view === "grid" ? (
           <div className="manga-grid">
             {sortedManga.map((manga) => (
-              <MangaCard key={manga.id} {...manga} />
+              <MangaCard 
+                key={manga.id} 
+                id={manga.id}
+                title={manga.title}
+                coverImage={manga.coverImage}
+                author={manga.author}
+                status={getValidStatus(manga.status)}
+              />
             ))}
           </div>
         ) : (

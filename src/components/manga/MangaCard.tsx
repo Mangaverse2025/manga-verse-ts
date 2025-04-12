@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
-interface MangaCardProps {
+export interface MangaCardProps {
   id: string;
   title: string;
   coverImage: string;
