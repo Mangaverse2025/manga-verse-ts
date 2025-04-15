@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Filter } from "lucide-react";
+import { Filter, Search as SearchIcon, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 import { SearchBar } from "@/components/search/SearchBar";
@@ -21,7 +21,7 @@ const Search = () => {
   const initialSort = queryParams.get("sort") || "popular";
   
   const [query, setQuery] = useState<string>("");
-  const [searchHistory] = useState<string[]>(["Demon Slayer", "One Piece", "Fantasy", "Action"]);
+  const [searchHistory, setSearchHistory] = useState<string[]>(["Demon Slayer", "One Piece", "Fantasy", "Action"]);
   const [sort, setSort] = useState<string>(initialSort);
   const [view, setView] = useState<"grid" | "list">("grid");
   const [showFilters, setShowFilters] = useState<boolean>(false);
@@ -68,6 +68,19 @@ const Search = () => {
         return 0;
     }
   });
+
+  // Handle search submission
+  const handleSearch = (searchQuery: string) => {
+    setQuery(searchQuery);
+    if (searchQuery && !searchHistory.includes(searchQuery)) {
+      setSearchHistory(prev => [searchQuery, ...prev].slice(0, 10));
+    }
+  };
+
+  // Remove item from search history
+  const removeFromHistory = (item: string) => {
+    setSearchHistory(prev => prev.filter(i => i !== item));
+  };
   
   // Update URL query params when filters change
   useEffect(() => {
@@ -100,7 +113,7 @@ const Search = () => {
         {/* Search bar and filters toggle button */}
         <div className="flex items-center gap-4">
           <div className="flex-1">
-            <SearchBar query={query} setQuery={setQuery} />
+            <SearchBar query={query} setQuery={handleSearch} />
           </div>
           
           <Button 
@@ -110,6 +123,15 @@ const Search = () => {
           >
             <Filter className="h-4 w-4" />
             {showFilters ? "Hide Filters" : "Show Filters"}
+          </Button>
+
+          <Button
+            variant="default"
+            className="flex items-center gap-2"
+            onClick={() => handleSearch(query)}
+          >
+            <SearchIcon className="h-4 w-4" />
+            Search
           </Button>
         </div>
         
@@ -135,8 +157,12 @@ const Search = () => {
         {/* Search history and popular tags if no query */}
         {!query ? (
           <div>
-            <SearchHistory searchHistory={searchHistory} setQuery={setQuery} />
-            <PopularTags setQuery={setQuery} />
+            <SearchHistory 
+              searchHistory={searchHistory} 
+              setQuery={handleSearch}
+              removeFromHistory={removeFromHistory}
+            />
+            <PopularTags setQuery={handleSearch} />
           </div>
         ) : (
           <SearchResults query={query} sortedManga={sortedManga} view={view} />

@@ -17,12 +17,16 @@ const navigationItems = [
     path: "/",
   },
   {
-    title: "Browse",
-    path: "/browse",
-  },
-  {
     title: "Search",
     path: "/search",
+  },
+  {
+    title: "About Us",
+    path: "/about",
+  },
+  {
+    title: "Contact",
+    path: "/contact",
   },
 ];
 

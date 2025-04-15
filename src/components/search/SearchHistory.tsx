@@ -5,9 +5,10 @@ import { History, X } from "lucide-react";
 interface SearchHistoryProps {
   searchHistory: string[];
   setQuery: (query: string) => void;
+  removeFromHistory: (item: string) => void;
 }
 
-export function SearchHistory({ searchHistory, setQuery }: SearchHistoryProps) {
+export function SearchHistory({ searchHistory, setQuery, removeFromHistory }: SearchHistoryProps) {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
@@ -24,7 +25,13 @@ export function SearchHistory({ searchHistory, setQuery }: SearchHistoryProps) {
             onClick={() => setQuery(item)}
           >
             {item}
-            <X className="h-3 w-3" />
+            <X 
+              className="h-3 w-3 hover:text-destructive" 
+              onClick={(e) => {
+                e.stopPropagation();
+                removeFromHistory(item);
+              }}
+            />
           </Button>
         ))}
       </div>

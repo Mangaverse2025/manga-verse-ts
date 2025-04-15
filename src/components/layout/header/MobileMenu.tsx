@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { BookOpen, Compass, Heart, Search, Menu } from "lucide-react";
+import { BookOpen, Compass, Heart, Search, Menu, Info, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -10,11 +10,6 @@ const navigationItems = [
     title: "Home",
     icon: BookOpen,
     path: "/",
-  },
-  {
-    title: "Browse",
-    icon: Compass,
-    path: "/browse",
   },
   {
     title: "Search",
@@ -30,6 +25,16 @@ const navigationItems = [
     title: "Favorites",
     icon: Heart,
     path: "/favorites",
+  },
+  {
+    title: "About Us",
+    icon: Info,
+    path: "/about",
+  },
+  {
+    title: "Contact",
+    icon: Mail,
+    path: "/contact",
   },
 ];
 
@@ -61,15 +66,6 @@ export function MobileMenu() {
             <BookOpen className="h-6 w-6 text-primary" />
             <span className="font-bold text-xl">MangaVerse</span>
           </Link>
-          
-          <div className="relative mb-4">
-            <input 
-              type="search" 
-              placeholder="Search manga..." 
-              className="pl-10 pr-4 py-2 text-sm rounded-md w-full border border-input bg-background"
-            />
-            <Search className="h-4 w-4 text-muted-foreground absolute left-3 top-3" />
-          </div>
           
           <nav className="flex flex-col gap-2">
             {navigationItems.map((item) => (

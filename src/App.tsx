@@ -15,6 +15,10 @@ import Bookmarks from "./pages/Bookmarks";
 import Follows from "./pages/Follows";
 import MyGroups from "./pages/MyGroups";
 import Announcements from "./pages/Announcements";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import GenrePage from "./pages/GenrePage";
+import NotificationsPage from "./pages/NotificationsPage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +40,10 @@ const App = () => (
           <Route path="/follows" element={<Follows />} />
           <Route path="/my-groups" element={<MyGroups />} />
           <Route path="/announcements" element={<Announcements />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/genres/:genre" element={<GenrePage />} />
+          <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

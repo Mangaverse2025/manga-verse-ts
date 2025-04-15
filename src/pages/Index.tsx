@@ -3,8 +3,9 @@ import { MangaSection } from "@/components/manga/MangaSection";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Compass, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { MangaSlider } from "@/components/manga/MangaSlider";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
@@ -50,7 +51,7 @@ const Index = () => {
                     className="mt-2 w-fit"
                     asChild
                   >
-                    <a href={`/manga/${manga.id}`}>Read Now</a>
+                    <Link to={`/manga/${manga.id}`}>Read Now</Link>
                   </Button>
                 </div>
               </div>
@@ -62,13 +63,13 @@ const Index = () => {
       <MangaSection 
         title="Popular Manga" 
         mangaList={popularManga} 
-        viewAllLink="/browse?sort=popular"
+        viewAllLink="/search?sort=popular"
       />
       
       <MangaSection 
         title="Recently Updated" 
         mangaList={recentlyUpdatedManga} 
-        viewAllLink="/browse?sort=updated"
+        viewAllLink="/search?sort=updated"
       />
     </MainLayout>
   );

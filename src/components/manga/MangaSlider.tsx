@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -98,8 +97,8 @@ export function MangaSlider() {
           ))}
         </CarouselContent>
         
-        <CarouselPrevious className="left-4 z-30" />
-        <CarouselNext className="right-4 z-30" />
+        <CarouselPrevious className="left-4 z-20" />
+        <CarouselNext className="right-4 z-20" />
       </Carousel>
       
       <div className="flex justify-center gap-2 mt-4">
