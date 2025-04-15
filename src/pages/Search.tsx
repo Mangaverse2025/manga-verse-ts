@@ -96,9 +96,25 @@ const Search = () => {
         </p>
       </div>
       
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Filters sidebar */}
-        {showFilters && 
+      <div className="space-y-6">
+        {/* Search bar and filters toggle button */}
+        <div className="flex items-center gap-4">
+          <div className="flex-1">
+            <SearchBar query={query} setQuery={setQuery} />
+          </div>
+          
+          <Button 
+            variant="outline" 
+            className="flex items-center gap-2"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <Filter className="h-4 w-4" />
+            {showFilters ? "Hide Filters" : "Show Filters"}
+          </Button>
+        </div>
+        
+        {/* Horizontal filter panel */}
+        {showFilters && (
           <SearchFilters 
             sort={sort} 
             setSort={setSort}
@@ -107,38 +123,24 @@ const Search = () => {
             statusFilters={statusFilters}
             setStatusFilters={setStatusFilters}
           />
-        }
+        )}
         
-        <div className="flex-1">
-          {/* Search bar */}
-          <div className="mb-6">
-            <SearchBar query={query} setQuery={setQuery} />
+        {/* View toggle */}
+        {query && (
+          <div className="flex items-center justify-between">
+            <ViewToggle view={view} setView={setView} resultCount={sortedManga.length} />
           </div>
-          
-          {/* Toggle filters and view options */}
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-center gap-4">
-            <Button 
-              variant="outline" 
-              className="flex items-center gap-2"
-              onClick={() => setShowFilters(!showFilters)}
-            >
-              <Filter className="h-4 w-4" />
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </Button>
-            
-            {query && <ViewToggle view={view} setView={setView} resultCount={sortedManga.length} />}
+        )}
+        
+        {/* Search history and popular tags if no query */}
+        {!query ? (
+          <div>
+            <SearchHistory searchHistory={searchHistory} setQuery={setQuery} />
+            <PopularTags setQuery={setQuery} />
           </div>
-          
-          {/* Search history and popular tags if no query */}
-          {!query ? (
-            <div>
-              <SearchHistory searchHistory={searchHistory} setQuery={setQuery} />
-              <PopularTags setQuery={setQuery} />
-            </div>
-          ) : (
-            <SearchResults query={query} sortedManga={sortedManga} view={view} />
-          )}
-        </div>
+        ) : (
+          <SearchResults query={query} sortedManga={sortedManga} view={view} />
+        )}
       </div>
     </MainLayout>
   );
