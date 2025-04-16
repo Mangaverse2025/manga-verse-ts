@@ -4,7 +4,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Google } from "lucide-react";
+import { Chrome } from "lucide-react";  // Using Chrome icon as a replacement for Google
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -29,7 +29,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </div>
             
             <Button variant="outline" className="w-full">
-              <Google className="mr-2 h-4 w-4" />
+              <Chrome className="mr-2 h-4 w-4" />
               Continue with Google
             </Button>
             
@@ -46,10 +46,19 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             
             <div className="space-y-4">
               <div className="space-y-2">
-                <Input id="username" placeholder="Username or Email" />
+                <Label htmlFor="username">Username or Email</Label>
+                <Input 
+                  id="username" 
+                  placeholder="Enter your username or email" 
+                />
               </div>
               <div className="space-y-2">
-                <Input id="password" type="password" placeholder="Your Password" />
+                <Label htmlFor="password">Password</Label>
+                <Input 
+                  id="password" 
+                  type="password" 
+                  placeholder="Enter your password" 
+                />
               </div>
               
               <div className="text-sm">
@@ -80,16 +89,35 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             
             <div className="space-y-4">
               <div className="space-y-2">
-                <Input id="register-username" placeholder="Username" />
+                <Label htmlFor="register-username">Username</Label>
+                <Input 
+                  id="register-username" 
+                  placeholder="Choose a username" 
+                />
               </div>
               <div className="space-y-2">
-                <Input id="register-email" type="email" placeholder="Email" />
+                <Label htmlFor="register-email">Email</Label>
+                <Input 
+                  id="register-email" 
+                  type="email" 
+                  placeholder="Enter your email" 
+                />
               </div>
               <div className="space-y-2">
-                <Input id="register-password" type="password" placeholder="Password" />
+                <Label htmlFor="register-password">Password</Label>
+                <Input 
+                  id="register-password" 
+                  type="password" 
+                  placeholder="Create a password" 
+                />
               </div>
               <div className="space-y-2">
-                <Input id="register-confirm" type="password" placeholder="Confirm password" />
+                <Label htmlFor="register-confirm">Confirm password</Label>
+                <Input 
+                  id="register-confirm" 
+                  type="password" 
+                  placeholder="Confirm your password" 
+                />
               </div>
             </div>
             
