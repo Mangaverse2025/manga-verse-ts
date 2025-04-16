@@ -88,84 +88,305 @@ const NotificationsPage = () => {
               System
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="all" className="mt-0">
+            {filteredNotifications.length > 0 ? (
+              <div className="space-y-4">
+                {filteredNotifications.map((notification) => (
+                  <div 
+                    key={notification.id}
+                    className={`border border-border rounded-lg p-4 transition-colors ${
+                      notification.read ? 'bg-card/30' : 'bg-card'
+                    }`}
+                    onClick={() => markAsRead(notification.id)}
+                  >
+                    <div className="flex items-start gap-4">
+                      <Link to={`/manga/${notification.mangaId}`}>
+                        <img 
+                          src={notification.coverImage}
+                          alt={notification.mangaTitle}
+                          className="w-16 h-24 object-cover rounded"
+                        />
+                      </Link>
+                      
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <Link 
+                            to={`/manga/${notification.mangaId}`}
+                            className="font-medium hover:text-primary transition-colors"
+                          >
+                            {notification.mangaTitle}
+                          </Link>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(notification.timestamp).toLocaleDateString()}
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm mt-1">
+                          {notification.message} - {notification.chapterName}
+                        </p>
+                        
+                        <div className="flex gap-2 mt-3">
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            asChild
+                          >
+                            <Link to={`/manga/${notification.mangaId}`}>View Details</Link>
+                          </Button>
+                          
+                          {!notification.read && (
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                markAsRead(notification.id);
+                              }}
+                            >
+                              Mark as read
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="py-16 text-center">
+                <p className="text-lg">No notifications</p>
+                <p className="text-muted-foreground">
+                  You don't have any notifications at the moment
+                </p>
+              </div>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="unread">
+            {filteredNotifications.length > 0 ? (
+              <div className="space-y-4">
+                {filteredNotifications.map((notification) => (
+                  // Same notification card as in "all" tab
+                  <div 
+                    key={notification.id}
+                    className="border border-border rounded-lg p-4 bg-card"
+                    onClick={() => markAsRead(notification.id)}
+                  >
+                    <div className="flex items-start gap-4">
+                      <Link to={`/manga/${notification.mangaId}`}>
+                        <img 
+                          src={notification.coverImage}
+                          alt={notification.mangaTitle}
+                          className="w-16 h-24 object-cover rounded"
+                        />
+                      </Link>
+                      
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <Link 
+                            to={`/manga/${notification.mangaId}`}
+                            className="font-medium hover:text-primary transition-colors"
+                          >
+                            {notification.mangaTitle}
+                          </Link>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(notification.timestamp).toLocaleDateString()}
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm mt-1">
+                          {notification.message} - {notification.chapterName}
+                        </p>
+                        
+                        <div className="flex gap-2 mt-3">
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            asChild
+                          >
+                            <Link to={`/manga/${notification.mangaId}`}>View Details</Link>
+                          </Button>
+                          
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              markAsRead(notification.id);
+                            }}
+                          >
+                            Mark as read
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="py-16 text-center">
+                <p className="text-lg">No unread notifications</p>
+                <p className="text-muted-foreground">
+                  You have read all your notifications
+                </p>
+              </div>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="update">
+            {filteredNotifications.length > 0 ? (
+              <div className="space-y-4">
+                {filteredNotifications.map((notification) => (
+                  // Same notification card as in previous tabs
+                  <div 
+                    key={notification.id}
+                    className={`border border-border rounded-lg p-4 transition-colors ${
+                      notification.read ? 'bg-card/30' : 'bg-card'
+                    }`}
+                    onClick={() => markAsRead(notification.id)}
+                  >
+                    <div className="flex items-start gap-4">
+                      <Link to={`/manga/${notification.mangaId}`}>
+                        <img 
+                          src={notification.coverImage}
+                          alt={notification.mangaTitle}
+                          className="w-16 h-24 object-cover rounded"
+                        />
+                      </Link>
+                      
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <Link 
+                            to={`/manga/${notification.mangaId}`}
+                            className="font-medium hover:text-primary transition-colors"
+                          >
+                            {notification.mangaTitle}
+                          </Link>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(notification.timestamp).toLocaleDateString()}
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm mt-1">
+                          {notification.message} - {notification.chapterName}
+                        </p>
+                        
+                        <div className="flex gap-2 mt-3">
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            asChild
+                          >
+                            <Link to={`/manga/${notification.mangaId}`}>View Details</Link>
+                          </Button>
+                          
+                          {!notification.read && (
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                markAsRead(notification.id);
+                              }}
+                            >
+                              Mark as read
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="py-16 text-center">
+                <p className="text-lg">No update notifications</p>
+                <p className="text-muted-foreground">
+                  You don't have any update notifications at the moment
+                </p>
+              </div>
+            )}
+          </TabsContent>
+          
+          <TabsContent value="system">
+            {filteredNotifications.length > 0 ? (
+              <div className="space-y-4">
+                {filteredNotifications.map((notification) => (
+                  // Same notification card as in previous tabs
+                  <div 
+                    key={notification.id}
+                    className={`border border-border rounded-lg p-4 transition-colors ${
+                      notification.read ? 'bg-card/30' : 'bg-card'
+                    }`}
+                    onClick={() => markAsRead(notification.id)}
+                  >
+                    <div className="flex items-start gap-4">
+                      <Link to={`/manga/${notification.mangaId}`}>
+                        <img 
+                          src={notification.coverImage}
+                          alt={notification.mangaTitle}
+                          className="w-16 h-24 object-cover rounded"
+                        />
+                      </Link>
+                      
+                      <div className="flex-1">
+                        <div className="flex justify-between">
+                          <Link 
+                            to={`/manga/${notification.mangaId}`}
+                            className="font-medium hover:text-primary transition-colors"
+                          >
+                            {notification.mangaTitle}
+                          </Link>
+                          <span className="text-xs text-muted-foreground">
+                            {new Date(notification.timestamp).toLocaleDateString()}
+                          </span>
+                        </div>
+                        
+                        <p className="text-sm mt-1">
+                          {notification.message} - {notification.chapterName}
+                        </p>
+                        
+                        <div className="flex gap-2 mt-3">
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            asChild
+                          >
+                            <Link to={`/manga/${notification.mangaId}`}>View Details</Link>
+                          </Button>
+                          
+                          {!notification.read && (
+                            <Button 
+                              size="sm" 
+                              variant="ghost"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                markAsRead(notification.id);
+                              }}
+                            >
+                              Mark as read
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="py-16 text-center">
+                <p className="text-lg">No system notifications</p>
+                <p className="text-muted-foreground">
+                  You don't have any system notifications at the moment
+                </p>
+              </div>
+            )}
+          </TabsContent>
         </Tabs>
         
         <Button variant="outline" onClick={markAllAsRead}>Mark all as read</Button>
       </div>
-      
-      <TabsContent value="all" className="mt-0">
-        {filteredNotifications.length > 0 ? (
-          <div className="space-y-4">
-            {filteredNotifications.map((notification) => (
-              <div 
-                key={notification.id}
-                className={`border border-border rounded-lg p-4 transition-colors ${
-                  notification.read ? 'bg-card/30' : 'bg-card'
-                }`}
-                onClick={() => markAsRead(notification.id)}
-              >
-                <div className="flex items-start gap-4">
-                  <Link to={`/manga/${notification.mangaId}`}>
-                    <img 
-                      src={notification.coverImage}
-                      alt={notification.mangaTitle}
-                      className="w-16 h-24 object-cover rounded"
-                    />
-                  </Link>
-                  
-                  <div className="flex-1">
-                    <div className="flex justify-between">
-                      <Link 
-                        to={`/manga/${notification.mangaId}`}
-                        className="font-medium hover:text-primary transition-colors"
-                      >
-                        {notification.mangaTitle}
-                      </Link>
-                      <span className="text-xs text-muted-foreground">
-                        {new Date(notification.timestamp).toLocaleDateString()}
-                      </span>
-                    </div>
-                    
-                    <p className="text-sm mt-1">
-                      {notification.message} - {notification.chapterName}
-                    </p>
-                    
-                    <div className="flex gap-2 mt-3">
-                      <Button 
-                        size="sm" 
-                        variant="outline" 
-                        asChild
-                      >
-                        <Link to={`/manga/${notification.mangaId}`}>View Details</Link>
-                      </Button>
-                      
-                      {!notification.read && (
-                        <Button 
-                          size="sm" 
-                          variant="ghost"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            markAsRead(notification.id);
-                          }}
-                        >
-                          Mark as read
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="py-16 text-center">
-            <p className="text-lg">No notifications</p>
-            <p className="text-muted-foreground">
-              You don't have any notifications at the moment
-            </p>
-          </div>
-        )}
-      </TabsContent>
     </MainLayout>
   );
 };
