@@ -10,6 +10,7 @@ import MangaDetails from "./pages/MangaDetails";
 import ChapterReader from "./pages/ChapterReader";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import ContinueReading from "./pages/ContinueReading";
 import Bookmarks from "./pages/Bookmarks";
 import Follows from "./pages/Follows";
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/manga/:id" element={<MangaDetails />} />
           <Route path="/manga/:mangaId/chapter/:chapterId" element={<ChapterReader />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/continue-reading" element={<ContinueReading />} />
           <Route path="/bookmarks" element={<Bookmarks />} />
           <Route path="/follows" element={<Follows />} />
