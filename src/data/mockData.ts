@@ -210,7 +210,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "Cruelty",
     releaseDate: "2016-02-15",
     readStatus: "read",
-    pages: Array(24).fill(0).map((_, i) => `https://source.unsplash.com/random/800x1200/?manga,page${i+1}`)
+    pages: Array(24).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/1690f164-78d6-45e6-9e41-392516cf0178.jpg.512.jpg${i+1}`)
   },
   {
     id: "ds-002",
@@ -218,7 +218,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "The Stranger",
     releaseDate: "2016-02-22",
     readStatus: "read",
-    pages: Array(22).fill(0).map((_, i) => `https://source.unsplash.com/random/800x1200/?manga,comic${i+1}`)
+    pages: Array(22).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/36aadca0-c9ab-473c-824d-035ab866bd2e.jpg.512.jpg${i+1}`)
   },
   {
     id: "ds-003",
@@ -226,7 +226,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "The Promise",
     releaseDate: "2016-02-29",
     readStatus: "unread",
-    pages: Array(24).fill(0).map((_, i) => `https://source.unsplash.com/random/800x1200/?manga,story${i+1}`)
+    pages: Array(24).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/c5a839de-8fec-42ec-ab69-1f664b37f327.jpg.512.jpg${i+1}`)
   },
   {
     id: "ds-004",
@@ -234,7 +234,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "Final Selection",
     releaseDate: "2016-03-07",
     readStatus: "unread",
-    pages: Array(25).fill(0).map((_, i) => `https://source.unsplash.com/random/800x1200/?manga,book${i+1}`)
+    pages: Array(25).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/7c4917a0-ba02-4359-81db-4868ba0c31c6.jpg.512.jpg${i+1}`)
   },
   {
     id: "ds-005",
@@ -242,7 +242,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "My Own Steel",
     releaseDate: "2016-03-14",
     readStatus: "unread",
-    pages: Array(23).fill(0).map((_, i) => `https://source.unsplash.com/random/800x1200/?anime,manga${i+1}`)
+    pages: Array(23).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/555832fe-36b4-417d-b89a-feae1fdda1eb.jpg.512.jpg${i+1}`)
   }
 ];
 
