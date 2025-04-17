@@ -3,6 +3,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Settings, List, ArrowLeft } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { ReaderSidebar } from "@/components/manga/ReaderSidebar";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 interface MangaReaderProps {
   mangaId: string;
@@ -24,6 +28,7 @@ export function MangaReader({
   nextChapterId,
 }: MangaReaderProps) {
   const [currentPage, setCurrentPage] = useState(0);
+  const [settingsSidebarOpen, setSettingsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   
   const goToNextPage = () => {
@@ -60,10 +65,18 @@ export function MangaReader({
             </div>
           </div>
           <div className="flex gap-2">
-            <Button variant="ghost" size="icon">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate(`/manga/${mangaId}`)}
+            >
               <List className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => setSettingsSidebarOpen(true)}
+            >
               <Settings className="h-5 w-5" />
             </Button>
           </div>
@@ -132,6 +145,17 @@ export function MangaReader({
           </Button>
         </div>
       </footer>
+
+      <Sheet open={settingsSidebarOpen} onOpenChange={setSettingsSidebarOpen} side="right">
+        <SheetContent className="bg-zinc-900 text-white border-none">
+          <ReaderSidebar 
+            mangaId={mangaId} 
+            chapterId={chapterId} 
+            chapterTitle={chapterTitle} 
+            chapterNumber={chapterNumber}
+          />
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }

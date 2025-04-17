@@ -2,6 +2,7 @@
 import { useParams } from "react-router-dom";
 import { MangaReader } from "@/components/manga/MangaReader";
 import { getMangaById, getChapterById, getChaptersByMangaId } from "@/data/mockData";
+import { getChapterPagesById } from "@/data/chapter-pages";
 
 const ChapterReader = () => {
   const { mangaId, chapterId } = useParams<{ mangaId: string; chapterId: string }>();
@@ -26,13 +27,20 @@ const ChapterReader = () => {
   const prevChapterId = chapterIndex > 0 ? allChapters[chapterIndex - 1].id : undefined;
   const nextChapterId = chapterIndex < allChapters.length - 1 ? allChapters[chapterIndex + 1].id : undefined;
   
+  // Get the pages from our chapter-pages data
+  const pageObjects = getChapterPagesById(chapterId);
+  const pages = pageObjects.map(page => page.url);
+  
+  // If no specific pages are found, use the mock pages from the chapter
+  const finalPages = pages.length > 0 ? pages : (chapter.pages || []);
+  
   return (
     <MangaReader
       mangaId={mangaId || ""}
       chapterId={chapterId || ""}
       chapterNumber={chapter.number}
       chapterTitle={chapter.title}
-      pages={chapter.pages || []}
+      pages={finalPages}
       prevChapterId={prevChapterId}
       nextChapterId={nextChapterId}
     />

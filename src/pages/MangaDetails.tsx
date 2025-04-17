@@ -1,16 +1,24 @@
-
 import { useParams } from "react-router-dom";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { ChapterList } from "@/components/manga/ChapterList";
 import { MangaSection } from "@/components/manga/MangaSection";
 import { getMangaById, getChaptersByMangaId, popularManga } from "@/data/mockData";
-import { BookOpen, Heart, Share2, Calendar, Star, Tag, User } from "lucide-react";
+import { BookOpen, Heart, Share2, Calendar, Star, Tag, User, Upload, Flag, List, Plus } from "lucide-react";
+import { useState } from "react";
+import { AddToListDialog } from "@/components/manga/AddToListDialog";
+import { RatingDialog } from "@/components/manga/RatingDialog";
+import { ReportDialog } from "@/components/manga/ReportDialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Bookmark } from "@/components/manga/Bookmark";
 
 const MangaDetails = () => {
   const { id } = useParams<{ id: string }>();
   const manga = getMangaById(id || "");
   const chapters = getChaptersByMangaId(id || "");
+  const [isAddToListOpen, setIsAddToListOpen] = useState(false);
+  const [isRatingOpen, setIsRatingOpen] = useState(false);
+  const [isReportOpen, setIsReportOpen] = useState(false);
   
   if (!manga) {
     return (
@@ -49,10 +57,39 @@ const MangaDetails = () => {
               </div>
               
               <div className="mt-4 space-y-4">
-                <Button className="w-full gap-2">
-                  <BookOpen className="h-4 w-4" />
-                  {chapters.length > 0 ? "Continue Reading" : "Start Reading"}
-                </Button>
+                <div className="flex flex-col gap-2">
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button onClick={() => setIsRatingOpen(true)} variant="outline" className="flex gap-2 items-center justify-center">
+                      <Star className="h-4 w-4" />
+                      Rating
+                    </Button>
+                    <Button onClick={() => setIsAddToListOpen(true)} variant="outline" className="flex gap-2 items-center justify-center">
+                      <List className="h-4 w-4" />
+                      Add to List
+                    </Button>
+                    <Button onClick={() => setIsReportOpen(true)} variant="outline" className="flex gap-2 items-center justify-center">
+                      <Flag className="h-4 w-4" />
+                      Report
+                    </Button>
+                    <Button asChild variant="outline" className="flex gap-2 items-center justify-center">
+                      <a href="/upload">
+                        <Upload className="h-4 w-4" />
+                        Upload
+                      </a>
+                    </Button>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Button className="flex-1 gap-2">
+                      <BookOpen className="h-4 w-4" />
+                      {chapters.length > 0 ? "Start Reading" : "Start Reading"}
+                    </Button>
+                    
+                    <Button variant="outline" size="icon">
+                      <Bookmark className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
                 
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
@@ -139,6 +176,10 @@ const MangaDetails = () => {
         title="You May Also Like" 
         mangaList={popularManga.filter(m => m.id !== manga.id).slice(0, 6)} 
       />
+
+      <AddToListDialog open={isAddToListOpen} onOpenChange={setIsAddToListOpen} />
+      <RatingDialog open={isRatingOpen} onOpenChange={setIsRatingOpen} mangaId={manga.id} />
+      <ReportDialog open={isReportOpen} onOpenChange={setIsReportOpen} mangaId={manga.id} manga={manga} />
     </MainLayout>
   );
 };

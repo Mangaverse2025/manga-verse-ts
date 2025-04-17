@@ -1,14 +1,17 @@
 
-import { Button } from "@/components/ui/button";
-import { Clock, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { LanguageSelect } from "@/components/manga/LanguageSelect";
+import { Search } from "lucide-react";
 
 interface Chapter {
   id: string;
   number: string;
   title: string;
   releaseDate: string;
-  readStatus?: "read" | "unread";
+  group?: string;
 }
 
 interface ChapterListProps {
@@ -17,58 +20,64 @@ interface ChapterListProps {
 }
 
 export function ChapterList({ chapters, mangaId }: ChapterListProps) {
+  const sortedChapters = [...chapters].sort((a, b) => 
+    parseFloat(b.number) - parseFloat(a.number)
+  );
+
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold">Chapters</h3>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            Newest
-          </Button>
-          <Button variant="outline" size="sm">
-            Oldest
-          </Button>
+    <div className="bg-card rounded-lg p-6">
+      <div className="flex flex-col md:flex-row gap-4 mb-6 items-start md:items-center justify-between">
+        <LanguageSelect />
+        
+        <div className="relative w-full md:w-auto md:min-w-[300px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search chapters..."
+            className="pl-10"
+          />
         </div>
       </div>
       
-      <div className="space-y-3">
-        {chapters.map((chapter) => (
-          <div 
-            key={chapter.id} 
-            className={`p-4 rounded-lg border bg-card/50 hover:bg-card transition-colors ${
-              chapter.readStatus === "read" ? "opacity-60" : ""
-            }`}
-          >
-            <Link to={`/manga/${mangaId}/chapter/${chapter.id}`} className="block">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">Chapter {chapter.number}</span>
+      <Tabs defaultValue="chapter">
+        <TabsList className="grid w-full md:w-auto md:inline-grid grid-cols-2 mb-6">
+          <TabsTrigger value="chapter">CHAPTER</TabsTrigger>
+          <TabsTrigger value="volume" asChild>
+            <a href={`/manga/${mangaId}/volumes`}>VOLUME</a>
+          </TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="chapter">
+          {chapters.length === 0 ? (
+            <div className="text-center py-10">
+              <p className="text-muted-foreground">No chapters available yet.</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {sortedChapters.map((chapter) => (
+                <Link 
+                  key={chapter.id}
+                  to={`/manga/${mangaId}/chapter/${chapter.id}`}
+                  className="flex items-center justify-between p-3 rounded-md hover:bg-accent transition-colors"
+                >
+                  <div>
+                    <div className="font-medium">
+                      Chapter {chapter.number}
+                    </div>
                     {chapter.title && (
-                      <span className="text-muted-foreground">- {chapter.title}</span>
+                      <div className="text-sm text-muted-foreground">
+                        {chapter.title}
+                      </div>
                     )}
                   </div>
-                  <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {chapter.releaseDate}
-                    </span>
-                    {chapter.readStatus === "read" && (
-                      <span className="flex items-center gap-1 text-primary">
-                        <BookOpen className="h-3 w-3" />
-                        Read
-                      </span>
-                    )}
+                  <div className="text-sm text-muted-foreground">
+                    {chapter.releaseDate}
                   </div>
-                </div>
-                <Button size="sm" variant="outline">
-                  Read
-                </Button>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
