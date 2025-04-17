@@ -146,7 +146,7 @@ export function MangaReader({
         </div>
       </footer>
 
-      <Sheet open={settingsSidebarOpen} onOpenChange={setSettingsSidebarOpen} side="right">
+      <Sheet open={settingsSidebarOpen} onOpenChange={setSettingsSidebarOpen}>
         <SheetContent className="bg-zinc-900 text-white border-none">
           <ReaderSidebar 
             mangaId={mangaId} 
