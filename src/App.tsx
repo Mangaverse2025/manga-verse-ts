@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -24,6 +23,10 @@ import VolumeDetails from "./pages/VolumeDetails";
 import VolumeReader from "./pages/VolumeReader";
 import MyLists from "./pages/MyLists";
 import Upload from "./pages/Upload";
+import AuthorPage from "./pages/AuthorPage";
+import ArtistPage from "./pages/ArtistPage";
+import RankingPage from "./pages/RankingPage";
+import PopularPage from "./pages/PopularPage";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +57,10 @@ const App = () => (
           <Route path="/genres/:genre" element={<GenrePage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/authors/:authorName" element={<AuthorPage />} />
+          <Route path="/artists/:artistName" element={<ArtistPage />} />
+          <Route path="/ranking" element={<RankingPage />} />
+          <Route path="/popular" element={<PopularPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

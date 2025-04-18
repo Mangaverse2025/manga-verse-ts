@@ -1,4 +1,3 @@
-
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -16,15 +15,16 @@ export interface MangaCardProps {
   title: string;
   coverImage: string;
   author?: string;
+  artist?: string;
   status?: "Ongoing" | "Completed" | "Hiatus";
   className?: string;
 }
 
-export function MangaCard({ id, title, coverImage, author, status, className }: MangaCardProps) {
+export function MangaCard({ id, title, coverImage, author, artist, status, className }: MangaCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const toggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent navigation when clicking the heart
+    e.preventDefault();
     setIsFavorite(!isFavorite);
   };
 
@@ -68,7 +68,16 @@ export function MangaCard({ id, title, coverImage, author, status, className }: 
         <Link to={`/manga/${id}`} className="font-medium line-clamp-2 hover:text-primary transition-colors">
           {title}
         </Link>
-        {author && <p className="text-xs text-muted-foreground mt-1">{author}</p>}
+        {author && (
+          <Link to={`/authors/${author}`} className="text-xs text-muted-foreground mt-1 hover:text-primary">
+            {author}
+          </Link>
+        )}
+        {artist && author !== artist && (
+          <Link to={`/artists/${artist}`} className="text-xs text-muted-foreground mt-0.5 hover:text-primary">
+            Art by {artist}
+          </Link>
+        )}
       </div>
     </div>
   );

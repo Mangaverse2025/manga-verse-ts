@@ -18,13 +18,19 @@ interface MangaSectionProps {
 }
 
 export function MangaSection({ title, mangaList, viewAllLink, className }: MangaSectionProps) {
+  const getViewAllPath = () => {
+    if (title.toLowerCase().includes('popular')) return '/popular';
+    if (title.toLowerCase().includes('ranking')) return '/ranking';
+    return viewAllLink;
+  };
+
   return (
     <section className={cn("mb-10", className)}>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-2xl font-bold">{title}</h2>
         {viewAllLink && (
           <Link 
-            to={viewAllLink} 
+            to={getViewAllPath()} 
             className="flex items-center text-sm text-primary hover:underline"
           >
             View All <ChevronRight className="h-4 w-4 ml-1" />
