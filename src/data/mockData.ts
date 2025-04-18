@@ -28,7 +28,7 @@ export const popularManga: Manga[] = [
   {
     id: "demon-slayer",
     title: "Demon Slayer: Kimetsu no Yaiba",
-    coverImage: "https://source.unsplash.com/random/300x450/?manga,anime",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/179023.jpg",
     description: "Tanjiro Kamado's life changed when his family was slaughtered by demons, with only his sister Nezuko surviving but transformed into a demon. Determined to avenge his family and cure his sister, Tanjiro embarks on a journey to become a Demon Slayer.",
     author: "Koyoharu Gotouge",
     status: "Completed",
@@ -41,7 +41,7 @@ export const popularManga: Manga[] = [
   {
     id: "one-piece",
     title: "One Piece",
-    coverImage: "https://source.unsplash.com/random/300x450/?pirate,manga",
+    coverImage: "https://cdn.myanimelist.net/images/manga/2/253146.jpg",
     description: "Monkey D. Luffy sets off on a journey to find the mythical treasure One Piece and become the Pirate King. Along the way, he recruits a diverse crew of pirates and faces numerous rivals and enemies.",
     author: "Eiichiro Oda",
     status: "Ongoing",
@@ -54,7 +54,7 @@ export const popularManga: Manga[] = [
   {
     id: "jujutsu-kaisen",
     title: "Jujutsu Kaisen",
-    coverImage: "https://source.unsplash.com/random/300x450/?dark,fantasy",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/210341.jpg",
     description: "Yuji Itadori, an unnaturally fit high school student, joins his school's Occult Club to avoid the track team. When club members open a cursed object, Yuji swallows it to protect his friends, becoming host to a powerful Curse named Ryomen Sukuna.",
     author: "Gege Akutami",
     status: "Ongoing",
@@ -67,7 +67,7 @@ export const popularManga: Manga[] = [
   {
     id: "chainsaw-man",
     title: "Chainsaw Man",
-    coverImage: "https://source.unsplash.com/random/300x450/?horror,blood",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/216464.jpg",
     description: "Denji is a young man trapped in poverty, working off his father's debt to the yakuza by harvesting demon corpses with his pet devil-dog Pochita. When the yakuza betray Denji and kill him, Pochita merges with his body, granting him the ability to transform into the Chainsaw Man.",
     author: "Tatsuki Fujimoto",
     status: "Ongoing",
@@ -80,7 +80,7 @@ export const popularManga: Manga[] = [
   {
     id: "my-hero-academia",
     title: "My Hero Academia",
-    coverImage: "https://source.unsplash.com/random/300x450/?superhero",
+    coverImage: "https://cdn.myanimelist.net/images/manga/1/209370.jpg",
     description: "In a world where most of the population has superpowers, or 'Quirks,' Izuku Midoriya is born without one. Still, he dreams of becoming a hero. After meeting his idol, the world's greatest hero All Might, Izuku's life changes forever.",
     author: "Kohei Horikoshi",
     status: "Ongoing",
@@ -93,7 +93,7 @@ export const popularManga: Manga[] = [
   {
     id: "attack-on-titan",
     title: "Attack on Titan",
-    coverImage: "https://source.unsplash.com/random/300x450/?giant,wall",
+    coverImage: "https://cdn.myanimelist.net/images/manga/2/37846.jpg",
     description: "Humanity lives inside cities surrounded by enormous walls due to the Titans, gigantic humanoid creatures who devour humans seemingly without reason. Eren Yeager vows to retake the world after a Titan brings about the destruction of his hometown and the death of his mother.",
     author: "Hajime Isayama",
     status: "Completed",
@@ -109,7 +109,7 @@ export const recentlyUpdatedManga: Manga[] = [
   {
     id: "spy-x-family",
     title: "Spy x Family",
-    coverImage: "https://source.unsplash.com/random/300x450/?family,spy",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/219741.jpg",
     description: "Master spy Twilight is unparalleled at what he does when it comes to going undercover on dangerous missions for the betterment of the world. But when he receives the ultimate assignment—to get married and have a kid—he may finally be in over his head!",
     author: "Tatsuya Endo",
     status: "Ongoing",
@@ -122,7 +122,7 @@ export const recentlyUpdatedManga: Manga[] = [
   {
     id: "tokyo-revengers",
     title: "Tokyo Revengers",
-    coverImage: "https://source.unsplash.com/random/300x450/?gang,japan",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/196272.jpg",
     description: "Takemichi Hanagaki learns that his ex-girlfriend, Hinata Tachibana, has died. When he's shoved in front of a train, he time leaps 12 years into the past. Now he must aim to rise to the top of Kanto's most dangerous delinquent gang to save Hinata.",
     author: "Ken Wakui",
     status: "Ongoing",
@@ -135,7 +135,7 @@ export const recentlyUpdatedManga: Manga[] = [
   {
     id: "blue-lock",
     title: "Blue Lock",
-    coverImage: "https://source.unsplash.com/random/300x450/?soccer,sport",
+    coverImage: "https://cdn.myanimelist.net/images/manga/5/213340.jpg",
     description: "After a disastrous defeat at the 2018 World Cup, Japan's team struggles to regroup. The Japanese Football Union hires enigmatic coach Jinpachi Ego, who creates a radical new training program called Blue Lock that isolates 300 elite high school strikers.",
     author: "Muneyuki Kaneshiro",
     artist: "Yusuke Nomura",
@@ -149,7 +149,7 @@ export const recentlyUpdatedManga: Manga[] = [
   {
     id: "solo-leveling",
     title: "Solo Leveling",
-    coverImage: "https://source.unsplash.com/random/300x450/?game,fantasy",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/222295.jpg",
     description: "In a world where hunters — humans who possess magical abilities — battle dangerous monsters to protect humanity, Sung Jinwoo is known as the 'World's Weakest Hunter.' One day, after a brutal encounter in a high-rank dungeon, he begins to develop unique abilities.",
     author: "Chugong",
     status: "Completed",
@@ -165,7 +165,7 @@ export const trendingManga: Manga[] = [
   {
     id: "kaiju-no-8",
     title: "Kaiju No. 8",
-    coverImage: "https://source.unsplash.com/random/300x450/?monster,kaiju",
+    coverImage: "https://cdn.myanimelist.net/images/manga/3/252929.jpg",
     description: "Kafka Hibino has always dreamed of joining the Defense Force to fight the kaiju (monsters) that raid Japan. Despite failing the exam multiple times, a chance encounter with a unique kaiju changes his life forever when he gains the ability to transform into Kaiju No. 8.",
     author: "Naoya Matsumoto",
     status: "Ongoing",
@@ -178,7 +178,7 @@ export const trendingManga: Manga[] = [
   {
     id: "hell-paradise",
     title: "Hell's Paradise: Jigokuraku",
-    coverImage: "https://source.unsplash.com/random/300x450/?paradise,hell",
+    coverImage: "https://cdn.myanimelist.net/images/manga/2/208522.jpg",
     description: "Gabimaru the Hollow, a ninja condemned to death, is offered the chance to win a pardon by finding the elixir of immortality on a supernatural island. He's joined by a squad of death row convicts and their executioners to explore this dangerous paradise.",
     author: "Yuji Kaku",
     status: "Completed",
@@ -191,7 +191,7 @@ export const trendingManga: Manga[] = [
   {
     id: "dandadan",
     title: "Dandadan",
-    coverImage: "https://source.unsplash.com/random/300x450/?alien,ghost",
+    coverImage: "https://cdn.myanimelist.net/images/manga/2/248746.jpg",
     description: "High schooler Momo Ayase believes in ghosts but not aliens, while her classmate Okarun believes in aliens but not ghosts. When they decide to prove each other wrong, they end up witnessing supernatural phenomena that entangle them in an unlikely alliance.",
     author: "Yukinobu Tatsu",
     status: "Ongoing",
@@ -210,7 +210,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "Cruelty",
     releaseDate: "2016-02-15",
     readStatus: "read",
-    pages: Array(24).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/1690f164-78d6-45e6-9e41-392516cf0178.jpg.512.jpg${i+1}`)
+    pages: Array(24).fill(0).map((_, i) => `https://cdn.myanimelist.net/images/manga/2/248746.jpg${i+1}`)
   },
   {
     id: "ds-002",
@@ -218,7 +218,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "The Stranger",
     releaseDate: "2016-02-22",
     readStatus: "read",
-    pages: Array(22).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/36aadca0-c9ab-473c-824d-035ab866bd2e.jpg.512.jpg${i+1}`)
+    pages: Array(22).fill(0).map((_, i) => `https://cdn.myanimelist.net/images/manga/2/208522.jpg${i+1}`)
   },
   {
     id: "ds-003",
@@ -226,7 +226,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "The Promise",
     releaseDate: "2016-02-29",
     readStatus: "unread",
-    pages: Array(24).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/c5a839de-8fec-42ec-ab69-1f664b37f327.jpg.512.jpg${i+1}`)
+    pages: Array(24).fill(0).map((_, i) => `https://cdn.myanimelist.net/images/manga/3/252929.jpg${i+1}`)
   },
   {
     id: "ds-004",
@@ -234,7 +234,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "Final Selection",
     releaseDate: "2016-03-07",
     readStatus: "unread",
-    pages: Array(25).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/7c4917a0-ba02-4359-81db-4868ba0c31c6.jpg.512.jpg${i+1}`)
+    pages: Array(25).fill(0).map((_, i) => `https://cdn.myanimelist.net/images/manga/3/222295.jpg${i+1}`)
   },
   {
     id: "ds-005",
@@ -242,7 +242,7 @@ export const demonSlayerChapters: Chapter[] = [
     title: "My Own Steel",
     releaseDate: "2016-03-14",
     readStatus: "unread",
-    pages: Array(23).fill(0).map((_, i) => `https://mangadex.org/covers/26102334-1f7b-4a5b-a64f-107c5c24a70f/555832fe-36b4-417d-b89a-feae1fdda1eb.jpg.512.jpg${i+1}`)
+    pages: Array(23).fill(0).map((_, i) => `https://cdn.myanimelist.net/images/manga/5/213340.jpg${i+1}`)
   }
 ];
 
