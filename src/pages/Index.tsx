@@ -1,5 +1,5 @@
-
 import { MangaSection } from "@/components/manga/MangaSection";
+import { RankingSection } from "@/components/manga/RankingSection";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { popularManga, recentlyUpdatedManga, trendingManga } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
@@ -59,6 +59,8 @@ const Index = () => {
           ))}
         </div>
       </section>
+      
+      <RankingSection />
       
       <MangaSection 
         title="Popular Manga" 
