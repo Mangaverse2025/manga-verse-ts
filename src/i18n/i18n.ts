@@ -3,7 +3,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Import translations
+// Import translations - we need to structure the resources properly
 import enTranslation from './locales/en.json';
 import esTranslation from './locales/es.json';
 import zhCNTranslation from './locales/zh-CN.json';
@@ -17,9 +17,24 @@ i18n
   // Configuration
   .init({
     resources: {
-      en: enTranslation,
-      es: esTranslation,
-      'zh-CN': zhCNTranslation,
+      en: {
+        common: enTranslation.common,
+        language: enTranslation.language,
+        settings: enTranslation.settings,
+        manga: enTranslation.manga
+      },
+      es: {
+        common: esTranslation.common,
+        language: esTranslation.language,
+        settings: esTranslation.settings,
+        manga: esTranslation.manga
+      },
+      'zh-CN': {
+        common: zhCNTranslation.common,
+        language: zhCNTranslation.language,
+        settings: zhCNTranslation.settings,
+        manga: zhCNTranslation.manga
+      },
     },
     fallbackLng: 'en',
     debug: false, // Set to true during development
