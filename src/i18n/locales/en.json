@@ -1,0 +1,57 @@
+
+{
+  "common": {
+    "readNow": "Read Now",
+    "details": "Details",
+    "viewAll": "View All",
+    "trending": "Trending Now",
+    "topRanked": "Top Ranked",
+    "popularManga": "Popular Manga",
+    "recentlyUpdated": "Recently Updated",
+    "search": "Search",
+    "settings": "Settings",
+    "myProfile": "My Profile",
+    "logout": "Logout"
+  },
+  "language": {
+    "title": "Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "french": "French",
+    "japanese": "Japanese",
+    "korean": "Korean",
+    "chinese": {
+      "simplified": "Chinese (Simplified)",
+      "traditional": "Chinese (Traditional)"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": {
+      "title": "Theme",
+      "description": "Choose how MangaVerse looks to you",
+      "default": "Default (System)",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "systemLanguage": {
+      "title": "System Language",
+      "description": "Choose your preferred language",
+      "selectLanguage": "Select a language"
+    }
+  },
+  "manga": {
+    "chapter": "Chapter",
+    "volume": "Volume",
+    "author": "Author",
+    "artist": "Artist",
+    "status": {
+      "ongoing": "Ongoing",
+      "completed": "Completed",
+      "hiatus": "Hiatus"
+    },
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "noChapters": "No chapters available yet."
+  }
+}

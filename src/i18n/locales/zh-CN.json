@@ -1,0 +1,57 @@
+
+{
+  "common": {
+    "readNow": "立即阅读",
+    "details": "详情",
+    "viewAll": "查看全部",
+    "trending": "热门趋势",
+    "topRanked": "排名靠前",
+    "popularManga": "流行漫画",
+    "recentlyUpdated": "最近更新",
+    "search": "搜索",
+    "settings": "设置",
+    "myProfile": "我的主页",
+    "logout": "退出登录"
+  },
+  "language": {
+    "title": "语言",
+    "english": "英语",
+    "spanish": "西班牙语",
+    "french": "法语",
+    "japanese": "日语",
+    "korean": "韩语",
+    "chinese": {
+      "simplified": "中文（简体）",
+      "traditional": "中文（繁体）"
+    }
+  },
+  "settings": {
+    "title": "设置",
+    "theme": {
+      "title": "主题",
+      "description": "选择 MangaVerse 的外观",
+      "default": "默认（系统）",
+      "light": "明亮",
+      "dark": "暗黑"
+    },
+    "systemLanguage": {
+      "title": "系统语言",
+      "description": "选择您的首选语言",
+      "selectLanguage": "选择语言"
+    }
+  },
+  "manga": {
+    "chapter": "章节",
+    "volume": "卷",
+    "author": "作者",
+    "artist": "绘者",
+    "status": {
+      "ongoing": "连载中",
+      "completed": "已完结",
+      "hiatus": "暂停更新"
+    },
+    "addToFavorites": "添加到收藏",
+    "removeFromFavorites": "从收藏中移除",
+    "noChapters": "暂无可用章节。"
+  }
+}

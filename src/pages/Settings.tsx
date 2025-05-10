@@ -5,10 +5,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Settings() {
+  const { t } = useTranslation();
+  const { currentLanguage, changeLanguage, languageOptions } = useLanguage();
   const [theme, setTheme] = useState("default");
-  const [language, setLanguage] = useState("english");
 
   useEffect(() => {
     // Apply theme based on selection
@@ -22,24 +25,18 @@ export default function Settings() {
       document.documentElement.classList.toggle("dark", prefersDark);
     }
   }, [theme]);
-  
-  // This would be expanded in a real app to actually change the language
-  useEffect(() => {
-    console.log(`Language set to: ${language}`);
-    // In a real app, we would use i18n library to change the language
-  }, [language]);
 
   return (
     <MainLayout>
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-6">Settings</h1>
+        <h1 className="text-2xl font-bold mb-6">{t('settings.title')}</h1>
         
         <div className="space-y-6">
           {/* Theme Settings */}
           <Card>
             <CardHeader>
-              <CardTitle>Theme</CardTitle>
-              <CardDescription>Choose how MangaVerse looks to you</CardDescription>
+              <CardTitle>{t('settings.theme.title')}</CardTitle>
+              <CardDescription>{t('settings.theme.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <RadioGroup 
@@ -49,15 +46,15 @@ export default function Settings() {
               >
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="default" id="theme-default" />
-                  <Label htmlFor="theme-default">Default (System)</Label>
+                  <Label htmlFor="theme-default">{t('settings.theme.default')}</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="light" id="theme-light" />
-                  <Label htmlFor="theme-light">Light</Label>
+                  <Label htmlFor="theme-light">{t('settings.theme.light')}</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="dark" id="theme-dark" />
-                  <Label htmlFor="theme-dark">Dark</Label>
+                  <Label htmlFor="theme-dark">{t('settings.theme.dark')}</Label>
                 </div>
               </RadioGroup>
             </CardContent>
@@ -66,24 +63,20 @@ export default function Settings() {
           {/* Language Settings */}
           <Card>
             <CardHeader>
-              <CardTitle>System Language</CardTitle>
-              <CardDescription>Choose your preferred language</CardDescription>
+              <CardTitle>{t('settings.systemLanguage.title')}</CardTitle>
+              <CardDescription>{t('settings.systemLanguage.description')}</CardDescription>
             </CardHeader>
             <CardContent>
-              <Select value={language} onValueChange={setLanguage}>
+              <Select value={currentLanguage} onValueChange={changeLanguage}>
                 <SelectTrigger className="w-full md:w-[250px]">
-                  <SelectValue placeholder="Select a language" />
+                  <SelectValue placeholder={t('settings.systemLanguage.selectLanguage')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="chinese-simplified">Chinese (Simplified)</SelectItem>
-                  <SelectItem value="chinese-traditional">Chinese (Traditional)</SelectItem>
-                  <SelectItem value="english">English</SelectItem>
-                  <SelectItem value="hindi">Hindi</SelectItem>
-                  <SelectItem value="japanese">Japanese</SelectItem>
-                  <SelectItem value="korean">Korean</SelectItem>
-                  <SelectItem value="portuguese">Portuguese</SelectItem>
-                  <SelectItem value="russian">Russian</SelectItem>
-                  <SelectItem value="spanish">Spanish</SelectItem>
+                  {languageOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </CardContent>

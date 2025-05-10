@@ -1,25 +1,38 @@
 
-import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Globe } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 export function LanguageSelect() {
+  const { t } = useTranslation();
+  const { currentLanguage, changeLanguage, languageOptions } = useLanguage();
+  
+  const displayText = {
+    'en': 'English',
+    'es': 'Español',
+    'zh-CN': '中文',
+  };
+  
   return (
-    <Select defaultValue="EN">
+    <Select 
+      value={currentLanguage} 
+      onValueChange={changeLanguage}
+    >
       <SelectTrigger className="w-[130px]">
         <div className="flex items-center gap-2">
           <Globe className="h-4 w-4" />
-          <SelectValue placeholder="Language" />
+          <SelectValue placeholder={t('language.title')}>
+            {displayText[currentLanguage as keyof typeof displayText] || displayText.en}
+          </SelectValue>
         </div>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="EN">English</SelectItem>
-        <SelectItem value="ZH-CN">Chinese (Simplified)</SelectItem>
-        <SelectItem value="ZH-TW">Chinese (Traditional)</SelectItem>
-        <SelectItem value="JA">Japanese</SelectItem>
-        <SelectItem value="KO">Korean</SelectItem>
-        <SelectItem value="ES">Spanish</SelectItem>
-        <SelectItem value="FR">French</SelectItem>
+        {languageOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

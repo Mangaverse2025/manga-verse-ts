@@ -1,3 +1,4 @@
+
 import { MangaSection } from "@/components/manga/MangaSection";
 import { RankingSection } from "@/components/manga/RankingSection";
 import { MainLayout } from "@/components/layout/MainLayout";
@@ -6,8 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import { MangaSlider } from "@/components/manga/MangaSlider";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Index = () => {
+  const { t } = useTranslation();
+  
   return (
     <MainLayout>
       <section className="mb-10">
@@ -15,7 +19,7 @@ const Index = () => {
         
         <div className="flex items-center gap-2 mb-6 mt-10">
           <Sparkles className="h-5 w-5 text-primary" />
-          <h2 className="text-xl font-semibold">Trending Now</h2>
+          <h2 className="text-xl font-semibold">{t('common.trending')}</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -51,7 +55,7 @@ const Index = () => {
                     className="mt-2 w-fit"
                     asChild
                   >
-                    <Link to={`/manga/${manga.id}`}>Read Now</Link>
+                    <Link to={`/manga/${manga.id}`}>{t('common.readNow')}</Link>
                   </Button>
                 </div>
               </div>
@@ -63,13 +67,13 @@ const Index = () => {
       <RankingSection />
       
       <MangaSection 
-        title="Popular Manga" 
+        title={t('common.popularManga')} 
         mangaList={popularManga} 
         viewAllLink="/search?sort=popular"
       />
       
       <MangaSection 
-        title="Recently Updated" 
+        title={t('common.recentlyUpdated')} 
         mangaList={recentlyUpdatedManga} 
         viewAllLink="/search?sort=updated"
       />

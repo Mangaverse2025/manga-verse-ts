@@ -1,0 +1,57 @@
+
+{
+  "common": {
+    "readNow": "Leer ahora",
+    "details": "Detalles",
+    "viewAll": "Ver todo",
+    "trending": "Tendencias",
+    "topRanked": "Mejor clasificados",
+    "popularManga": "Manga popular",
+    "recentlyUpdated": "Actualizado recientemente",
+    "search": "Buscar",
+    "settings": "Ajustes",
+    "myProfile": "Mi perfil",
+    "logout": "Cerrar sesión"
+  },
+  "language": {
+    "title": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "french": "Francés",
+    "japanese": "Japonés",
+    "korean": "Coreano",
+    "chinese": {
+      "simplified": "Chino (Simplificado)",
+      "traditional": "Chino (Tradicional)"
+    }
+  },
+  "settings": {
+    "title": "Ajustes",
+    "theme": {
+      "title": "Tema",
+      "description": "Elige cómo se ve MangaVerse para ti",
+      "default": "Predeterminado (Sistema)",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "systemLanguage": {
+      "title": "Idioma del sistema",
+      "description": "Elige tu idioma preferido",
+      "selectLanguage": "Selecciona un idioma"
+    }
+  },
+  "manga": {
+    "chapter": "Capítulo",
+    "volume": "Volumen",
+    "author": "Autor",
+    "artist": "Artista",
+    "status": {
+      "ongoing": "En curso",
+      "completed": "Completado",
+      "hiatus": "En pausa"
+    },
+    "addToFavorites": "Añadir a favoritos",
+    "removeFromFavorites": "Quitar de favoritos",
+    "noChapters": "Aún no hay capítulos disponibles."
+  }
+}
