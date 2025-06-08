@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Chrome, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 interface LoginModalProps {
@@ -23,7 +22,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, signInWithGoogle } = useAuth();
   const { toast } = useToast();
   
   const toggleAuthMode = () => {
@@ -38,20 +37,12 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
   const handleGoogleSignIn = async () => {
     try {
       setIsLoading(true);
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/`
-        }
-      });
+      console.log('Attempting Google sign in');
+      const { error } = await signInWithGoogle();
       
-      if (error) {
-        console.error('Google sign in error:', error);
-        toast({
-          variant: "destructive",
-          title: "Google Sign In Failed",
-          description: error.message,
-        });
+      if (!error) {
+        console.log('Google sign in initiated successfully');
+        onClose();
       }
     } catch (error: any) {
       console.error('Unexpected Google sign in error:', error);
@@ -140,7 +131,13 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
               <p className="text-sm text-muted-foreground">Log in to your account</p>
             </div>
             
-            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={isLoading}>
+            <Button 
+              type="button" 
+              variant="outline" 
+              className="w-full" 
+              onClick={handleGoogleSignIn} 
+              disabled={isLoading}
+            >
               <Chrome className="mr-2 h-4 w-4" />
               Continue with Google
             </Button>
@@ -226,6 +223,28 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             <div className="text-center">
               <h2 className="text-lg font-semibold">Create an account</h2>
               <p className="text-sm text-muted-foreground">Sign up to join MangaVerse</p>
+            </div>
+            
+            <Button 
+              type="button" 
+              variant="outline" 
+              className="w-full" 
+              onClick={handleGoogleSignIn} 
+              disabled={isLoading}
+            >
+              <Chrome className="mr-2 h-4 w-4" />
+              Continue with Google
+            </Button>
+            
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or
+                </span>
+              </div>
             </div>
             
             <div className="space-y-4">

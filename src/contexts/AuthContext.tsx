@@ -10,6 +10,7 @@ interface AuthContextType {
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signUp: (email: string, password: string, username?: string) => Promise<{ error: any }>;
+  signInWithGoogle: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -19,6 +20,7 @@ const AuthContext = createContext<AuthContextType>({
   loading: true,
   signIn: async () => ({ error: null }),
   signUp: async () => ({ error: null }),
+  signInWithGoogle: async () => ({ error: null }),
   signOut: async () => {},
 });
 
@@ -48,6 +50,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         // Handle successful sign in
         if (event === 'SIGNED_IN' && session?.user) {
           console.log('User signed in:', session.user.id);
+          
+          // Create or update profile for Google OAuth users
+          if (session.user.app_metadata?.provider === 'google') {
+            await createOrUpdateGoogleProfile(session.user);
+          }
         }
       }
     );
@@ -62,6 +69,59 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const createOrUpdateGoogleProfile = async (user: User) => {
+    try {
+      const { data: existingProfile, error: fetchError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
+
+      if (fetchError && fetchError.code !== 'PGRST116') {
+        console.error('Error fetching profile:', fetchError);
+        return;
+      }
+
+      const profileData = {
+        id: user.id,
+        username: user.user_metadata?.full_name || user.user_metadata?.name || '',
+        email: user.email || '',
+        avatar_url: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
+        updated_at: new Date().toISOString(),
+      };
+
+      if (existingProfile) {
+        // Update existing profile
+        const { error: updateError } = await supabase
+          .from('profiles')
+          .update(profileData)
+          .eq('id', user.id);
+
+        if (updateError) {
+          console.error('Error updating Google profile:', updateError);
+        } else {
+          console.log('Google profile updated successfully');
+        }
+      } else {
+        // Create new profile
+        const { error: insertError } = await supabase
+          .from('profiles')
+          .insert({
+            ...profileData,
+            created_at: new Date().toISOString(),
+          });
+
+        if (insertError) {
+          console.error('Error creating Google profile:', insertError);
+        } else {
+          console.log('Google profile created successfully');
+        }
+      }
+    } catch (error) {
+      console.error('Unexpected error managing Google profile:', error);
+    }
+  };
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -151,6 +211,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/`
+        }
+      });
+      
+      if (error) {
+        console.error('Google sign in error:', error);
+        toast({
+          variant: "destructive",
+          title: "Google Sign In Failed",
+          description: error.message,
+        });
+        return { error };
+      }
+      
+      return { error: null };
+    } catch (error: any) {
+      console.error('Unexpected Google sign in error:', error);
+      toast({
+        variant: "destructive",
+        title: "Google Sign In Error",
+        description: "An unexpected error occurred.",
+      });
+      return { error };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const signOut = async () => {
     try {
       setLoading(true);
@@ -188,6 +282,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loading,
     signIn,
     signUp,
+    signInWithGoogle,
     signOut,
   };
 
