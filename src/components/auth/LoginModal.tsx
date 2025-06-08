@@ -37,6 +37,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   const handleGoogleSignIn = async () => {
     try {
+      setIsLoading(true);
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -45,6 +46,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
       });
       
       if (error) {
+        console.error('Google sign in error:', error);
         toast({
           variant: "destructive",
           title: "Google Sign In Failed",
@@ -52,23 +54,41 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
         });
       }
     } catch (error: any) {
+      console.error('Unexpected Google sign in error:', error);
       toast({
         variant: "destructive",
         title: "Google Sign In Error",
         description: "An unexpected error occurred.",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!email.trim() || !password.trim()) {
+      toast({
+        variant: "destructive",
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+      });
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       if (isLogin) {
-        const { error } = await signIn(email, password);
+        console.log('Attempting to sign in with:', email);
+        const { error } = await signIn(email.trim(), password);
         if (!error) {
+          console.log('Sign in successful, closing modal');
           onClose();
+          // Clear form
+          setEmail("");
+          setPassword("");
         }
       } else {
         if (password !== confirmPassword) {
@@ -81,9 +101,26 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
           return;
         }
 
-        const { error } = await signUp(email, password, username);
+        if (password.length < 6) {
+          toast({
+            variant: "destructive",
+            title: "Password Too Short",
+            description: "Password must be at least 6 characters long.",
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        console.log('Attempting to sign up with:', email, 'username:', username);
+        const { error } = await signUp(email.trim(), password, username.trim());
         if (!error) {
+          console.log('Sign up successful, closing modal');
           onClose();
+          // Clear form
+          setEmail("");
+          setPassword("");
+          setUsername("");
+          setConfirmPassword("");
         }
       }
     } catch (error) {
@@ -103,7 +140,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
               <p className="text-sm text-muted-foreground">Log in to your account</p>
             </div>
             
-            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleSignIn}>
+            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleSignIn} disabled={isLoading}>
               <Chrome className="mr-2 h-4 w-4" />
               Continue with Google
             </Button>
@@ -129,6 +166,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={isLoading}
                 />
               </div>
               <div className="space-y-2">
@@ -141,6 +179,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    disabled={isLoading}
                   />
                   <Button
                     type="button"
@@ -148,6 +187,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -175,6 +215,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 type="button"
                 onClick={toggleAuthMode}
                 className="text-primary font-medium hover:text-primary/90"
+                disabled={isLoading}
               >
                 Register Now
               </button>
@@ -195,6 +236,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   placeholder="Choose a username" 
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  disabled={isLoading}
                 />
               </div>
               <div className="space-y-2">
@@ -206,6 +248,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  disabled={isLoading}
                 />
               </div>
               <div className="space-y-2">
@@ -214,10 +257,12 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   <Input 
                     id="register-password" 
                     type={showPassword ? "text" : "password"}
-                    placeholder="Create a password" 
+                    placeholder="Create a password (min 6 characters)" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    minLength={6}
+                    disabled={isLoading}
                   />
                   <Button
                     type="button"
@@ -225,6 +270,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                     size="sm"
                     className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -243,6 +289,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -257,6 +304,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
                 type="button"
                 onClick={toggleAuthMode}
                 className="text-primary font-medium hover:text-primary/90"
+                disabled={isLoading}
               >
                 Login Now
               </button>
